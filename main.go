@@ -6,22 +6,20 @@ import (
 	"net/http"
 )
 
-type Response struct {
-	Message string `json:"message"`
-}
-
-func helloHandler(w http.ResponseWriter, r *http.Request) {
+// getResourcesHandler handles GET requests and returns a list of resources
+func getResourcesHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
-	response := Response{Message: "Hello, World!"}
-	json.NewEncoder(w).Encode(response)
+	if err := json.NewEncoder(w).Encode(Resources); err != nil {
+		http.Error(w, "Failed to encode resources", http.StatusInternalServerError)
+	}
 }
 
 func main() {
-	http.HandleFunc("/api/hello", helloHandler)
-
-	port := "8080"
-	log.Printf("Starting server on port %s...", port)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatalf("Could not start server: %s\n", err.Error())
-	}
+	http.HandleFunc("/api/resources", getResourcesHandler)
+	log.Println("Server starting at :8080...")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -1,4 +1,4 @@
-# TT Rest Example
+# TT Resources Rest Example
 
 Basic repository to allow the creation of containerized rest api endpoints
 
@@ -6,19 +6,25 @@ Basic automated testing included
 
 
 # Steps
-go mod init restapi
-go mod tidy
+**Without DOCKER**
+
+`go run .`**
+
+**With DOCKER**
+
+`go mod init restapi`
+`go mod tidy`
 
 Run DockerDesktop
-docker build -t go-rest-api .
+`docker build -t go-rest-api .`
 
 
-docker run -p 8080:8080 go-rest-api
-or 
-docker-compose up
+`docker run -p 8080:8080 go-rest-api`
+or
+`docker-compose up`
 
 
-then visit or use curl on http://localhost:8080/api/hello
+then visit or use curl on http://localhost:8080/api/resources
 
 # Running tests
 

@@ -6,28 +6,26 @@ import (
 	"testing"
 )
 
-func TestHelloHandler(t *testing.T) {
-	// Create a new request to the /api/hello endpoint
-	req, err := http.NewRequest("GET", "/api/hello", nil)
-	if err != nil {
-		t.Fatalf("Could not create request: %v", err)
+func TestGetResourcesHandler(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/api/resources", nil)
+	w := httptest.NewRecorder()
+
+	getResourcesHandler(w, req)
+
+	resp := w.Result()
+	if resp.StatusCode != http.StatusOK {
+		t.Errorf("Expected status 200, got %d", resp.StatusCode)
 	}
+}
 
-	// Create a ResponseRecorder to capture the response
-	rr := httptest.NewRecorder()
+func TestGetResourcesWithPostHandler(t *testing.T) {
+	req := httptest.NewRequest(http.MethodPost, "/api/resources", nil)
+	w := httptest.NewRecorder()
 
-	// Create a handler and serve the request
-	handler := http.HandlerFunc(helloHandler)
-	handler.ServeHTTP(rr, req)
+	getResourcesHandler(w, req)
 
-	// Check the status code
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("Expected status 200 OK, got %v", status)
-	}
-
-	// Check the response body
-	expected := `{"message":"Hello, World!"}`
-	if rr.Body.String() != expected {
-		t.Errorf("Expected body %v, got %v", expected, rr.Body.String())
+	resp := w.Result()
+	if resp.StatusCode != http.StatusMethodNotAllowed {
+		t.Errorf("Expected status 405, got %d", resp.StatusCode)
 	}
 }
