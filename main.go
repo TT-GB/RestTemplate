@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	//"github.com/TT-GB/dbutils/utils"
 	"github.com/swaggo/http-swagger"
 	"log"
 	"net/http"
@@ -25,7 +26,7 @@ func getAllScansByCustomerID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(Scans); err != nil {
+	if err := json.NewEncoder(w).Encode(GetSampleData()); err != nil {
 		http.Error(w, "Failed to encode resources", http.StatusInternalServerError)
 	}
 }
@@ -47,7 +48,7 @@ func getScanDetails(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(Scans); err != nil {
+	if err := json.NewEncoder(w).Encode(GetSampleData()[0]); err != nil {
 		http.Error(w, "Failed to encode resources", http.StatusInternalServerError)
 	}
 }
