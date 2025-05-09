@@ -35,6 +35,9 @@ Through docker (it will run the tests as part of the build in this example)
 docker build -t go-rest-api .
 
 # Prereqs
+
+go install github.com/swaggo/swag/cmd/swag@latest
+
 go install google.golang.org/grpc@latest
 
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest

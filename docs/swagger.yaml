@@ -1,0 +1,89 @@
+basePath: /
+definitions:
+  main.Scan:
+    properties:
+      ip:
+        type: string
+      mac:
+        type: string
+      os:
+        type: string
+      resourceName:
+        type: string
+      resourceType:
+        type: string
+      riskScore:
+        type: integer
+      tags:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Rest API for TT APP
+  title: TT Rest API
+  version: "1.0"
+paths:
+  /api/scanDetails:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves scan results filtered by a customer ID
+      parameters:
+      - description: Scan ID
+        in: query
+        name: scanID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Scan'
+            type: array
+        "400":
+          description: Missing parameter
+          schema:
+            type: string
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get scan details by scan ID
+      tags:
+      - scans
+  /api/scansByCustomerID:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves scan results filtered by a customer ID
+      parameters:
+      - description: Customer ID
+        in: query
+        name: customerID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Scan'
+            type: array
+        "400":
+          description: Missing parameter
+          schema:
+            type: string
+        "500":
+          description: Internal error
+          schema:
+            type: string
+      summary: Get scans by customer ID
+      tags:
+      - scans
+swagger: "2.0"

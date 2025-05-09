@@ -1,6 +1,6 @@
 package main
 
-type Resource struct {
+type Scan struct {
 	IP           string `json:"ip"`
 	ResourceName string `json:"resourceName"`
 	MAC          string `json:"mac"`
@@ -10,8 +10,8 @@ type Resource struct {
 	Tags         string `json:"tags"`
 }
 
-// Resources is the shared list of mock data
-var Resources = []Resource{
+// Scans is the shared list of mock data
+var Scans = []Scan{
 	{
 		IP:           "192.168.1.10",
 		ResourceName: "Server-01",
